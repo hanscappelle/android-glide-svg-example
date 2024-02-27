@@ -1,0 +1,1 @@
+# android-glide-svg-issue
