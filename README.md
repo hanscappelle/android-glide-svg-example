@@ -5,7 +5,7 @@ libraries.
 
 Based on this `Glide` example app https://github.com/bumptech/glide/tree/v4.16.0/samples/svg.
 
-TODO add screenshot here
+![app screenshot](https://github.com/hanscappelle/android-glide-svg-example/blob/cd0d3185626b2f81b1227fe44ba751016008639e/screenshots/Screenshot_20240228_084619.png)
 
 # Steps
 
