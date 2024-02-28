@@ -54,17 +54,47 @@ and such.
 
 ```
 @GlideModule
-public class SvgModule extends AppGlideModule {
-  @Override
-  public void registerComponents(@NonNull Context context, @NonNull Glide glide, @NonNull Registry registry) {
-    registry
-        .register(SVG.class, PictureDrawable.class, new SvgDrawableTranscoder())
-        .append(InputStream.class, SVG.class, new SvgDecoder());
-  }
+class SvgModule : AppGlideModule() {
+    override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
+        registry
+            .register(SVG::class.java, PictureDrawable::class.java, SvgDrawableTranscoder())
+            .append(InputStream::class.java, SVG::class.java, SvgDecoder())
+    }
 
-  // Disable manifest parsing to avoid adding similar modules twice.
-  @Override
-  public boolean isManifestParsingEnabled() { return false; }
+    // Disable manifest parsing to avoid adding similar modules twice.
+    override fun isManifestParsingEnabled() = false
+}
+```
+
+SVGDecoder implementation
+```
+class SvgDecoder : ResourceDecoder<InputStream, SVG> {
+    override fun handles(source: InputStream, options: Options) = true
+
+    @Throws(IOException::class)
+    override fun decode(source: InputStream, width: Int, height: Int, options: Options): Resource<SVG>? {
+        return try {
+            // this is the implementation from lib v4.10 working w/o issues in RecyclerView
+            val svg = SVG.getFromInputStream(source)
+            SimpleResource(svg)
+        } catch (ex: SVGParseException) {
+            throw IOException("Cannot load SVG from stream", ex)
+        }
+    }
+}
+```
+
+And finally the SvgDrawableTranscoder implementation
+```
+class SvgDrawableTranscoder : ResourceTranscoder<SVG?, PictureDrawable> {
+    override fun transcode(
+        toTranscode: Resource<SVG?>, options: Options
+    ): Resource<PictureDrawable>? {
+        val svg = toTranscode.get()
+        val picture = svg.renderToPicture()
+        val drawable = PictureDrawable(picture)
+        return SimpleResource(drawable)
+    }
 }
 ```
 
@@ -94,29 +124,29 @@ Since `Glide` version 4.12 the width and height dimensions from the SVG source a
 `SVGDecoder` example project. This is causing issues with `scaleType` set on the `ImageView`.
 
 ```
-public class SvgDecoder implements ResourceDecoder<InputStream, SVG> {
+class SvgDecoder : ResourceDecoder<InputStream, SVG> {
+    override fun handles(source: InputStream, options: Options) = true
 
-  //...
-  
-  public Resource<SVG> decode(@NonNull InputStream source, int width, int height, @NonNull Options options) throws IOException {
-    try {
-      // this is the implementation from lib v4.10 working w/o issues in RecyclerView
-      SVG svg = SVG.getFromInputStream(source);
+    @Throws(IOException::class)
+    override fun decode(source: InputStream, width: Int, height: Int, options: Options): Resource<SVG>? {
+        return try {
+            // this is the implementation from lib v4.10 working w/o issues in RecyclerView
+            val svg = SVG.getFromInputStream(source)
 
-      // region these lines were added in v4.12 but cause issues with RecyclerView
-      //if (width != SIZE_ORIGINAL) {
-      //  svg.setDocumentWidth(width);
-      //}
-      //if (height != SIZE_ORIGINAL) {
-      //  svg.setDocumentHeight(height);
-      //}
-      // endregion
-
-      return new SimpleResource<>(svg);
-    } catch (SVGParseException ex) {
-      throw new IOException("Cannot load SVG from stream", ex);
+            // region these lines were added in v4.12 but cause issues with RecyclerView
+            //if (width != SIZE_ORIGINAL) {
+            //  svg.setDocumentWidth(width);
+            //}
+            //if (height != SIZE_ORIGINAL) {
+            //  svg.setDocumentHeight(height);
+            //}
+            // endregion
+            
+            SimpleResource(svg)
+        } catch (ex: SVGParseException) {
+            throw IOException("Cannot load SVG from stream", ex)
+        }
     }
-  }
 }
 ```
 
