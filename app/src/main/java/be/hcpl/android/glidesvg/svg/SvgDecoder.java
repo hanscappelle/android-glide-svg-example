@@ -25,16 +25,22 @@ public class SvgDecoder implements ResourceDecoder<InputStream, SVG> {
       @NonNull InputStream source, int width, int height, @NonNull Options options)
       throws IOException {
     try {
-      // this is the implementation from lib v4.10 working w/o issues in RecyclerView
+      // this is the implementation from lib v4.10 working w/o issues
       SVG svg = SVG.getFromInputStream(source);
 
+      // this isn't causing issues,
+      // from https://stackoverflow.com/questions/35512975/image-size-too-small-when-loading-svg-with-glide?noredirect=1&lq=1
+      if (svg.getDocumentViewBox() == null) {
+        svg.setDocumentViewBox(0f, 0f, svg.getDocumentWidth(), svg.getDocumentHeight());
+      }
+
       // region these lines were added in v4.12 but cause issues with RecyclerView
-      if (width != SIZE_ORIGINAL) {
-        svg.setDocumentWidth(width);
-      }
-      if (height != SIZE_ORIGINAL) {
-        svg.setDocumentHeight(height);
-      }
+      //if (width != SIZE_ORIGINAL) {
+      //  svg.setDocumentWidth(width);
+      //}
+      //if (height != SIZE_ORIGINAL) {
+      //  svg.setDocumentHeight(height);
+      //}
       // endregion
 
       return new SimpleResource<>(svg);
