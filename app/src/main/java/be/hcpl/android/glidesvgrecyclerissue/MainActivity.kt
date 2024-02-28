@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 
-
 class MainActivity : Activity() {
 
     private val svgPath = "https://www.clker.com/cliparts/u/Z/2/b/a/6/android-toy-h.svg"
@@ -25,7 +24,7 @@ class MainActivity : Activity() {
         setContentView(R.layout.activity_main)
 
         // add support for SVG
-        // example from https://github.com/bumptech/glide/blob/v4.10.0/samples/svg/
+        // example from https://github.com/bumptech/glide/tree/v4.16.0/samples/svg
         //val requestBuilder: RequestBuilder<PictureDrawable> = GlideApp.with(baseContext)
         //    .`as`(PictureDrawable::class.java)
         //    .listener(SvgSoftwareLayerSetter())

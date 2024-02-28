@@ -1,4 +1,4 @@
-package be.hcpl.android.glidesvgrecyclerissue;
+package be.hcpl.android.glidesvgrecyclerissue.svg;
 
 import androidx.annotation.NonNull;
 import com.bumptech.glide.load.Options;
@@ -9,6 +9,8 @@ import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 import java.io.IOException;
 import java.io.InputStream;
+
+import static com.bumptech.glide.request.target.Target.SIZE_ORIGINAL;
 
 /** Decodes an SVG internal representation from an {@link InputStream}. */
 public class SvgDecoder implements ResourceDecoder<InputStream, SVG> {
@@ -23,7 +25,18 @@ public class SvgDecoder implements ResourceDecoder<InputStream, SVG> {
       @NonNull InputStream source, int width, int height, @NonNull Options options)
       throws IOException {
     try {
+      // this is the implementation from lib v4.10 working w/o issues in RecyclerView
       SVG svg = SVG.getFromInputStream(source);
+
+      // region these lines were added in v4.12 but cause issues with RecyclerView
+      //if (width != SIZE_ORIGINAL) {
+      //  svg.setDocumentWidth(width);
+      //}
+      //if (height != SIZE_ORIGINAL) {
+      //  svg.setDocumentHeight(height);
+      //}
+      // endregion
+
       return new SimpleResource<>(svg);
     } catch (SVGParseException ex) {
       throw new IOException("Cannot load SVG from stream", ex);

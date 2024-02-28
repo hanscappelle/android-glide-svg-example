@@ -50,12 +50,13 @@ dependencies {
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
 
-    implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
-    implementation("com.caverock:androidsvg:1.2.1")
-    //annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.caverock:androidsvg:1.4")
+    // use annotationProcessor for non kotlin projects
+    // annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
     kapt("com.github.bumptech.glide:compiler:4.16.0")
 
 }
