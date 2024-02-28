@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "be.hcpl.android.glidesvgrecyclerissue"
+    namespace = "be.hcpl.android.glidesvg"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "be.hcpl.android.glidesvgrecyclerissue"
+        applicationId = "be.hcpl.android.glidesvg"
         minSdk = 24
         targetSdk = 33
         versionCode = 1

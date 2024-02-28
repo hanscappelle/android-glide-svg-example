@@ -1,4 +1,4 @@
-package be.hcpl.android.glidesvgrecyclerissue.svg;
+package be.hcpl.android.glidesvg.svg;
 
 import androidx.annotation.NonNull;
 import com.bumptech.glide.load.Options;
@@ -9,8 +9,6 @@ import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 import java.io.IOException;
 import java.io.InputStream;
-
-import static com.bumptech.glide.request.target.Target.SIZE_ORIGINAL;
 
 /** Decodes an SVG internal representation from an {@link InputStream}. */
 public class SvgDecoder implements ResourceDecoder<InputStream, SVG> {

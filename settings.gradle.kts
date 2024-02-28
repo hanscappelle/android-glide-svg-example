@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "GlideSvgRecyclerIssue"
+rootProject.name = "GlideSvgExample"
 include(":app")

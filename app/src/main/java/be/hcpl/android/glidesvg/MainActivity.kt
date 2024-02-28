@@ -1,7 +1,6 @@
-package be.hcpl.android.glidesvgrecyclerissue
+package be.hcpl.android.glidesvg
 
 import android.app.Activity
-import android.graphics.drawable.PictureDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
 
 class MainActivity : Activity() {
 

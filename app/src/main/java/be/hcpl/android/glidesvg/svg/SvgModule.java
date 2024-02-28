@@ -1,4 +1,4 @@
-package be.hcpl.android.glidesvgrecyclerissue.svg;
+package be.hcpl.android.glidesvg.svg;
 
 import android.content.Context;
 import android.graphics.drawable.PictureDrawable;
