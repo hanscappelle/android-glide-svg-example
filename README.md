@@ -82,11 +82,43 @@ Glide.with(baseContext).load(svgPath).into(imageView)
 
 # Troubleshooting
 
-## Parsing errors
+## SVG Parsing errors
 
 This example is using `https://www.clker.com/cliparts/u/Z/2/b/a/6/android-toy-h.svg` as an SVG 
 source. If your SVG file doesn't load check logcat for errors. SVG is an XML based image format 
 so has to be parsed and parsing can cause errors.
+
+## scaleType not working
+
+Since `Glide` version 4.12 the width and height dimensions from the SVG source are set in the 
+`SVGDecoder` example project. This is causing issues with `scaleType` set on the `ImageView`.
+
+```
+public class SvgDecoder implements ResourceDecoder<InputStream, SVG> {
+
+  //...
+  
+  public Resource<SVG> decode(@NonNull InputStream source, int width, int height, @NonNull Options options) throws IOException {
+    try {
+      // this is the implementation from lib v4.10 working w/o issues in RecyclerView
+      SVG svg = SVG.getFromInputStream(source);
+
+      // region these lines were added in v4.12 but cause issues with RecyclerView
+      //if (width != SIZE_ORIGINAL) {
+      //  svg.setDocumentWidth(width);
+      //}
+      //if (height != SIZE_ORIGINAL) {
+      //  svg.setDocumentHeight(height);
+      //}
+      // endregion
+
+      return new SimpleResource<>(svg);
+    } catch (SVGParseException ex) {
+      throw new IOException("Cannot load SVG from stream", ex);
+    }
+  }
+}
+```
 
 ## Unresolved reference GlideApp
 
