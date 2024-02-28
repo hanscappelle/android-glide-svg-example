@@ -52,7 +52,6 @@ class GlideAdapter(
     override fun onBindViewHolder(holder: GlideViewHolder, position: Int) {
         // use Glide here for image loading
         Glide.with(holder.itemView.context).load(items[position]).into(holder.imageView)
-        //requestBuilder.load(items[position]).into(holder.imageView)
     }
 
     override fun getItemCount() = items.size
