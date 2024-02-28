@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recycler_image"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:layout_margin="8dp"
-    android:scaleType="centerCrop" />
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/recycler_image"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_margin="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/recycler_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:background="@color/teal_200"
+        android:text="scaleType = CENTER_CROP"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_image"
+        app:layout_constraintEnd_toEndOf="@id/recycler_image"
+        app:layout_constraintStart_toStartOf="@id/recycler_image" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,6 +26,18 @@
         app:layout_constraintTop_toBottomOf="@+id/label_single_image" />
 
     <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:background="@color/teal_200"
+        android:text="scaleType = CENTER_CROP"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/single_image"
+        app:layout_constraintEnd_toEndOf="@id/single_image"
+        app:layout_constraintStart_toStartOf="@id/single_image" />
+
+    <TextView
         android:id="@+id/label_recycler_image"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

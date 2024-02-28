@@ -1,5 +1,7 @@
 package be.hcpl.android.glidesvg.svg;
 
+import static com.bumptech.glide.request.target.Target.SIZE_ORIGINAL;
+
 import androidx.annotation.NonNull;
 import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.ResourceDecoder;
@@ -27,12 +29,12 @@ public class SvgDecoder implements ResourceDecoder<InputStream, SVG> {
       SVG svg = SVG.getFromInputStream(source);
 
       // region these lines were added in v4.12 but cause issues with RecyclerView
-      //if (width != SIZE_ORIGINAL) {
-      //  svg.setDocumentWidth(width);
-      //}
-      //if (height != SIZE_ORIGINAL) {
-      //  svg.setDocumentHeight(height);
-      //}
+      if (width != SIZE_ORIGINAL) {
+        svg.setDocumentWidth(width);
+      }
+      if (height != SIZE_ORIGINAL) {
+        svg.setDocumentHeight(height);
+      }
       // endregion
 
       return new SimpleResource<>(svg);
